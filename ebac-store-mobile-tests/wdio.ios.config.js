@@ -1,50 +1,62 @@
 export const config = {
-    // runner: 'local',
-    // port: 4723,
 
-    user: 'oauth-adrianosilva130-6c810',
-    key: 'fc272c74-49e9-4499-bc8b-d4152090715a',
+    user: 'oauth-joadrito-c44c4',
+    key: '77c8f8b5-b5a7-4492-96c8-30fcec04fdae',
+
     protocol: 'https',
     hostname: 'ondemand.us-west-1.saucelabs.com',
     port: 443,
     path: '/wd/hub',
 
-    specs: [
-        './test/specs/**/*.js'
-    ],
+    runner: 'local',
+    specs: ['./test/specs/**/*.js'],
+
+    suites: {
+        login: ['./test/specs/login.test.js'],
+        product: ['./test/specs/product.test.js'],
+        search: ['./test/specs/search.test.js'],
+
+        //exercicio29
+        e2e: ['./test/exercicio29/e2e.test.js'],
+    },
+
     maxInstances: 1,
-    capabilities: [
 
+    capabilities: [{
+        platformName: 'iOS',
+        'appium:deviceName': 'iPhone 14 Simulator',
+        'appium:platformVersion': '16.0',
+        'appium:automationName': 'XCUITest',
+        'appium:app': 'storage:filename=LojaEBAC-sim.zip',
 
-        {
-            "platformName": 'iOS',
-            "appium:deviceName": 'iPhone 15 Simulator',
-            "appium:platformVersion": '17.2',
-            "appium:automationName": 'XCUITest',
-            'appium:app': 'storage:filename=LojaEBAC-sim.app',
-
-            'sauce:options': {
+        'sauce:options': {
             build: 'EBAC Mobile Tests',
-            name: 'Testes iOS EBAC'
+            name: 'Testes iOS EBAC',
+            appiumVersion: '2.0.0'
+        }
+    }],
 
-        },
-}],
     logLevel: 'info',
-
     framework: 'mocha',
 
-    reporters: ['spec',
-        ['allure', {
-            outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: false
-        }]
-    ],
+    reporters: ['spec'],
+
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+
+    // afterSuite: async function () {
+    afterTest: async function (test, context, { error, result, duration, passed }) {
         await driver.takeScreenshot();
-    }
+        await driver.execute('mobile: terminateApp', { bundleId: 'br.com.lojaebac' })
+    },
+
+    //beforeSuite:(async function () {
+    beforeTest: (async function () {
+        let state = await driver.queryAppState("br.com.lojaebac")
+        if (state !== 4) {
+            await driver.execute('mobile: lauchApp', { bundleId: 'br.com.lojaebac' })
+        }
+    }),
 }

@@ -14,9 +14,10 @@
   "scripts": {
     "test": "wdio run ./config/wdio.conf.js",
     "test:ios": "wdio run ./wdio.ios.config.js",
-    "test:login": "wdio run ./config/wdio.conf.js --suite login",
-    "test:product": "wdio run ./config/wdio.conf.js --suite product",
-    "test:search": "wdio run ./config/wdio.conf.js --suite search"
+    "test:ios:login": "wdio run ./wdio.ios.config.js --suite login",
+    "test:ios:product": "wdio run ./wdio.ios.config.js --suite product",
+    "test:ios:search": "wdio run ./wdio.ios.config.js --suite search",
+    "test:ios:e2e": "wdio run ./wdio.ios.config.js --suite e2e"
   },
   "dependencies": {
     "allure-commandline": "^2.25.0",
