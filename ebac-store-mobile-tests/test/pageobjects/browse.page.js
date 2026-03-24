@@ -3,23 +3,27 @@ import { $, $$ } from '@wdio/globals'
 class BrowsePage {
 
     get searchInput(){
-        return $(`-ios class chain:**/XCUIElementTypeTextField`)
+        return $(`-ios predicate string:name == "searchInput"`)
     }
 
     get products(){
-        return $$(`-ios class chain:**/XCUIElementTypeCell`)
+        return $$(`-ios predicate string:name == "productDetails"`)
     }
 
-    async searchProduct(nome){
-        await this.searchInput.waitForDisplayed({ timeout: 10000 })
-        await this.searchInput.setValue(nome)
-        await browser.pause(3000) // aguarda resultados
-    }
+    async openFirstProduct(){
+        // espera lista aparecer
+        await browser.waitUntil(async () => {
+            const items = await this.products
+            return items.length > 0
+        }, {
+            timeout: 10000,
+            timeoutMsg: 'Produtos não carregaram'
+        })
 
-    async selectFirstProduct(){
-        const produtos = await this.products
-        await produtos[0].click()
+        const products = await this.products
+        await products[0].click()
     }
 }
+
 
 export default new BrowsePage()

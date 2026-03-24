@@ -17,7 +17,7 @@ describe('Search', () => {
 
     it('should search products', async () => {
         await homePage.search()
-        await browsePage.searchInput.setValue('In')
+        await browsePage.searchInput.setValue('Ca')
         await browsePage.products.map(async product => {
             expect(await product.getText()).toContain('R$')
         })
