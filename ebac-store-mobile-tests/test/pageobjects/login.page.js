@@ -1,27 +1,31 @@
-import { $ } from '@wdio/globals'
+import { $, driver } from '@wdio/globals'
 
 class LoginPage {
 
-    get email(){
-        return $('~email')
+    get email() {
+        return $('id:email')
     }
 
-    get password(){
-        return $('~password')
+    get password() {
+        if (driver.isAndroid)
+            return $('android=new uiSelector().text("Password")')
+        if (driver.isIOS)
+            return $('-ios predicate string: name == "Password"')
     }
 
-    get loginButton(){
-        return $('~btnLogin')
+    get btnLogin() {
+        if (driver.isAndroid)
+            return $('~Login')
+        if (driver.isIOS)
+            return $('~btnLogin')
     }
 
-    async login(user, pass){
+    async login(email, password) {
         await this.email.waitForDisplayed({ timeout: 15000 })
-
-        await this.email.setValue(user)
-        await this.password.setValue(pass)
-
-        await this.loginButton.click()
+        await this.email.setValue(email)
+        await this.password.setValue(password)
+        await this.btnLogin.click()
     }
 }
 
-export default new LoginPage()
+export default new LoginPage();
