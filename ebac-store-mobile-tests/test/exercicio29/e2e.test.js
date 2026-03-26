@@ -7,25 +7,25 @@ import checkoutPage from '../pageobjects/checkout.page.js'
 
 describe('E2E - Compra de Produto', () => {
 
-    it('deve logar, buscar produto e finalizar compra', async () => {
+    it('deve buscar produto e finalizar compra', async () => {
 
         // LOGIN
-        await homePage.goToLogin()
-        await loginPage.login('standard_user', 'secret_sauce')
+        let profileTab = driver.isAndroid ? 'profile' : 'Account'
+        await homePage.openMenu(profileTab)
+        await loginPage.login('cliente@ebac.art.br', 'GD*peToHNJ1#c$sgk08EaYJQ')
 
+        // AGUARDA VOLTAR PRA HOME
+        await homePage.search()
+        await browsePage.openFirstProduct()
 
-        // BUSCA
-        await homePage.openSearch()
-        await browsePage.searchProduct('Jacket')
-
-        // SELECIONAR PRODUTO
-        await browsePage.selectFirstProduct()
-
-        // ADICIONAR AO CARRINHO
+        // ADD NO CARRINHO
         await productPage.addToCart()
 
-        // CHECKOUT
-        await cartPage.goToCheckout()
+        // IR PARA CARRINHO + CHECKOUT
+        await cartPage.goToCart()
+        await cartPage.checkout()
+
+        // FINALIZAR
         await checkoutPage.finishCheckout()
 
     })

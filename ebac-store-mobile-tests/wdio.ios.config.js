@@ -1,7 +1,7 @@
 export const config = {
 
-    user: 'oauth-joadrito01-0729a',
-    key: '56a51f86-0c31-4b05-aa95-097c361c423e',
+    user: 'oauth-joadrito02-0231d',
+    key: '317b3c6f-aea9-4248-9e81-7dadbe53fde4',
 
     protocol: 'https',
     hostname: 'ondemand.us-west-1.saucelabs.com',

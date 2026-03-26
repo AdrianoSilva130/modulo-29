@@ -2,12 +2,21 @@ import { $ } from '@wdio/globals'
 
 class CartPage {
 
-    get checkoutButton(){
-        return $(`~Proceed To Checkout`)
+    get cartButton(){
+        return $('~cart')
     }
 
-    async goToCheckout(){
-        await this.checkoutButton.waitForDisplayed({ timeout: 10000 })
+    get checkoutButton(){
+        return $('~checkout')
+    }
+
+    async goToCart(){
+        await this.cartButton.waitForDisplayed({ timeout: 15000 })
+        await this.cartButton.click()
+    }
+
+    async checkout(){
+        await this.checkoutButton.waitForDisplayed({ timeout: 15000 })
         await this.checkoutButton.click()
     }
 }

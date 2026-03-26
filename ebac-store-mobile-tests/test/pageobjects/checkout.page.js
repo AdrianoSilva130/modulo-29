@@ -2,13 +2,13 @@ import { $ } from '@wdio/globals'
 
 class CheckoutPage {
 
-    get placeOrderButton(){
-        return $(`~Place Order`)
+    get finishButton(){
+        return $('~finish')
     }
 
-    async finishCheckout(){
-        await this.placeOrderButton.waitForDisplayed({ timeout: 10000 })
-        await this.placeOrderButton.click()
+    async finish(){
+        await this.finishButton.waitForDisplayed({ timeout: 15000 })
+        await this.finishButton.click()
     }
 }
 
