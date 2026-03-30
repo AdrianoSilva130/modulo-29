@@ -5,6 +5,9 @@ on:
     branches: [ci]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,14 +22,23 @@ jobs:
           node-version: '21'
 
       - name: Install Dependencies
-        run: npm i
+        run: |
+          cd ebac-store-mobile-tests
+          npm i
 
       - name: Run Tests
-        run: npm t
+        run: |
+          cd ebac-store-mobile-tests
+          npm t
+
+      - name: Generate Allure Report
+        run: |
+          cd ebac-store-mobile-tests
+          npm run allure:report
 
       - name: Publish Report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: ./ebac-store-mobile-tests/allure-report
