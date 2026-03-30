@@ -18,3 +18,4 @@ export let generalConf = {
     ...reportersConf,
     ...hooksConf
 }
+

@@ -8,16 +8,16 @@
     "@wdio/mocha-framework": "^8.24.12",
     "@wdio/spec-reporter": "^8.24.12",
     "appium-uiautomator2-driver": "^2.34.2",
+    "cross-env": "^10.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "test": "wdio run ./config/wdio.conf.js",
-    "test:ios": "wdio run ./wdio.ios.config.js",
-    "test:ios:login": "wdio run ./wdio.ios.config.js --suite login",
-    "test:ios:product": "wdio run ./wdio.ios.config.js --suite product",
-    "test:ios:search": "wdio run ./wdio.ios.config.js --suite search",
-    "test:ios:e2e": "wdio run ./wdio.ios.config.js --suite e2e"
+    "test": "cross-env ENVIRONMENT=saucelabs wdio run ./config/wdio.conf.js",
+    "test:login": "wdio run ./config/wdio.conf.js--suite login",
+    "test:product": "wdio run ./config/wdio.conf.js--suite product",
+    "test:search": "wdio run ./config/wdio.conf.js--suite search",
+    "test:ios:e2e": "wdio run ./config/wdio.conf.js--suite e2e"
   },
   "dependencies": {
     "allure-commandline": "^2.25.0",

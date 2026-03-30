@@ -4,7 +4,7 @@ export let sauceConf = {
     key: process.env.SAUCE_ACCESS_KEY,
     hostname: 'ondemand.us-west-1.saucelabs.com',
     port: 443,
-    baseUrl: 'wd/hub',
+    path: '/wd/hub',
     capabilities: process.env.PLATFORM === "android" ? [
         {
             platformName: 'Android',
@@ -17,20 +17,21 @@ export let sauceConf = {
                 build: 'appium-build-teste-ebacshop-android',
                 name: 'Ebac Shop Teste',
                 deviceOrientation: 'PORTRAIT',
-                appiumVersion: '2.0.0'
+                appiumVersion: 'latest'
             },
         }
     ] : [
         {
-            'appium:app': 'storage:filename=LojaEBAC.ipa', // The filename of the mobile app
-            'appium:deviceName': 'iPhone.*',
-            'appium:platformVersion': '17',
-            'appium:automationName': 'XCUITest',
+            "platformName": "iOS",
+            "appium:deviceName": "iPhone 14 simulator",
+            "appium:platformVersion": "16",
+            "appium:automationName": "XCUITest",
+            "appium:app": "storage:filename=LojaEBAC-sim.zip",
             'sauce:options': {
                 build: 'appium-build-teste-ebacshop-ios',
                 name: 'Ebac Shop Teste',
                 deviceOrientation: 'PORTRAIT',
-                appiumVersion: '2.0.0'
+                appiumVersion: 'latest'
             },
         }
     ],
