@@ -17,7 +17,9 @@
     "test:login": "wdio run ./config/wdio.conf.js--suite login",
     "test:product": "wdio run ./config/wdio.conf.js--suite product",
     "test:search": "wdio run ./config/wdio.conf.js--suite search",
-    "test:ios:e2e": "wdio run ./config/wdio.conf.js--suite e2e"
+    "test:ios:e2e": "wdio run ./config/wdio.conf.js--suite e2e",
+    "posttest": "npm run report",
+    "report": "allure generate allure-results"
   },
   "dependencies": {
     "allure-commandline": "^2.25.0",
