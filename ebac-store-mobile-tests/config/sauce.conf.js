@@ -23,10 +23,10 @@ export let sauceConf = {
     ] : [
         {
             "platformName": "iOS",
-            "appium:deviceName": "iPhone 14 simulator",
-            "appium:platformVersion": "16",
+            "appium:deviceName": 'iPhone 13 Pro',
+            //"appium:platformVersion": 'current_major',
             "appium:automationName": "XCUITest",
-            "appium:app": "storage:filename=LojaEBAC-sim.zip",
+            "appium:app": "storage:filename=LojaEBAC.ipa",
             'sauce:options': {
                 build: 'appium-build-teste-ebacshop-ios',
                 name: 'Ebac Shop Teste',
