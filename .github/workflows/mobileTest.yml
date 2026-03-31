@@ -12,6 +12,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+      SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,10 +30,10 @@ jobs:
           cd ebac-store-mobile-tests
           npm i
 
-      - name: Run Tests
+      - name: Run Tests (SauceLabs)
         run: |
           cd ebac-store-mobile-tests
-          npm t
+          ENVIRONMENT=saucelabs npm t
 
       - name: Generate Allure Report
         run: |
