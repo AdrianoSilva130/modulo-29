@@ -6,9 +6,14 @@ import productPage from '../pageobjects/product.page.js'
 describe('Product Details', () => {
     it('should view product info', async () => {
         await homePage.search()
-        await browsePage.searchInput.setValue('camiseta')
-        await (await browsePage.products).at(0).click()
-        expect (productPage.getProductTitle('Camiseta')).toBeDisplayed()
+        await browsePage.searchInput.setValue('Camiseta')
+         const products = await browsePage.products
+        await products[0].click()
+
+        const title = await productPage.getProductTitle('Camiseta')
+        await title.waitForDisplayed({ timeout: 20000 })
+
+        await expect(title).toBeDisplayed()
     })
 })
 
