@@ -2,7 +2,7 @@ name: EBAC CI Mobile
 
 on:
   push:
-    branches: [ci]
+    branches: [main, ci]
   workflow_dispatch:
 
 permissions:
@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-      SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
     steps:
       - name: Checkout
@@ -23,23 +23,19 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '21'
+          node-version: '20'
 
       - name: Install Dependencies
-        run: |
-          cd ebac-store-mobile-tests
-          npm i
+        working-directory: ebac-store-mobile-tests
+        run: npm i
 
       - name: Run Tests
-        run: |
-          cd ebac-store-mobile-tests
-          ENVIRONMENT=browserstack npm t
-          ENVIRONMENT=saucelabs npm t
+        working-directory: ebac-store-mobile-tests
+        run: npm t
 
       - name: Generate Allure Report
-        run: |
-          cd ebac-store-mobile-tests
-          npm run allure:report
+        working-directory: ebac-store-mobile-tests
+        run: npm run allure:report
 
       - name: Publish Report
         uses: peaceiris/actions-gh-pages@v3

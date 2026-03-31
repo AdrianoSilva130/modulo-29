@@ -1,12 +1,14 @@
 import { generalConf } from './general.conf.js'
 
+const platform = process.env.PLATFORM || 'ios'
+
 export let bsConf = {
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
     protocol: 'https',
     hostname: 'hub.browserstack.com',
-    port: 443,
-    capabilities: process.env.PLATFORM === "android" ? [
+    
+    capabilities: platform === 'android' ? [
         {
             "platformName": 'Android',
             'appium:deviceName': 'Samsung Galaxy S22 Ultra',
