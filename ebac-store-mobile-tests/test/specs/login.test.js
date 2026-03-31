@@ -8,6 +8,6 @@ describe('My Login application', () => {
         let profileTab = driver.isAndroid ? 'profile' : 'Account'
         await homePage.openMenu(profileTab)
         await loginPage.login('cliente@ebac.art.br', 'GD*peToHNJ1#c$sgk08EaYJQ')
-        expect((await profilePage.profileName('EBAC Cliente')).isDisplayed()).toBeTruthy()
+        await expect((await profilePage.profileName('EBAC Cliente')).isDisplayed()).toBeTruthy()
     })
 })
