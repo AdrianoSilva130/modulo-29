@@ -30,9 +30,10 @@ jobs:
           cd ebac-store-mobile-tests
           npm i
 
-      - name: Run Tests (SauceLabs)
+      - name: Run Tests
         run: |
           cd ebac-store-mobile-tests
+          ENVIRONMENT=browserstack npm t
           ENVIRONMENT=saucelabs npm t
 
       - name: Generate Allure Report
