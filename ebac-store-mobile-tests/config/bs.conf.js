@@ -5,8 +5,12 @@ const platform = process.env.PLATFORM || 'ios'
 export let bsConf = {
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
-    protocol: 'https',
     hostname: 'hub.browserstack.com',
+    port: 443,
+    protocol: 'https',
+    path: '/wd/hub',
+
+    services: ['browserstack'],
     
     capabilities: platform === 'android' ? [
         {
